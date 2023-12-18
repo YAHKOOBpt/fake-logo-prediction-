@@ -1,0 +1,131 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logo Predictor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: url('{% static "bg image.jpg" %}') center center fixed;
+            background-size: cover;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            font-weight: 800;
+            color: #333;
+        }
+
+        #logoInput {
+            display: none;
+        }
+
+        .custom-file-upload {
+            cursor: pointer;
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #1b3e63;
+            color: #fff;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        #preview {
+            max-width: 100%;
+            margin-bottom: 20px;
+            border: 2px solid #3d0715;
+            border-radius: 5px;
+            display: none;
+            margin: auto;
+        }
+
+        .btn-success {
+            background-color: hsl(315, 89%, 21%);
+            border: none;
+        }
+
+        #result {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        #logout-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            }
+
+        @media (max-width: 768px) {
+            #logout-icon {
+                position: static;
+                margin-bottom: 16px;
+                color: #901334;
+                font-size: 25px;
+            }
+        }
+
+        
+    </style>
+</head>
+
+<body>
+    
+    <div class="container">
+    <a href="{% url 'logoutpage' %}"><i class="fas fa-sign-out-alt fa-2x" id="logout-icon"></i></a>
+    
+        <h2 class="mb-5">Logo Predictor</h2>
+        <form id="logoForm">
+            <label for="logoInput" class="custom-file-upload">
+                Choose Logo Image
+            </label>
+            <input type="file" id="logoInput" accept="image/*" required>
+            <img id="preview" alt="Preview Image">
+            <button type="button" class="btn btn-success btn-block mt-3" onclick="predictLogo()">Predict</button>
+        </form>
+        <div id="result" class="mt-4"></div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js (required for Bootstrap) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        function predictLogo() {
+            // Placeholder function for logo prediction
+            // In a real implementation, this would involve sending the image to a server for inference
+            // and receiving the prediction result.
+            var resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Prediction: Fake'; // Replace with actual prediction logic
+        }
+
+        // Display preview of the uploaded image
+        document.getElementById('logoInput').addEventListener('change', function (event) {
+            var preview = document.getElementById('preview');
+            preview.style.display = 'block';
+            preview.src = URL.createObjectURL(event.target.files[0]);
+        });
+    </script>
+</body>
+
+</html>
