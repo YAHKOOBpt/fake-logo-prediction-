@@ -94,15 +94,16 @@
     <a href="{% url 'logoutpage' %}"><i class="fas fa-sign-out-alt fa-2x" id="logout-icon"></i></a>
     
         <h2 class="mb-5">Logo Predictor</h2>
-        <form id="logoForm">
+        <form id="logoForm" method="post" enctype="multipart/form-data" action="{% url 'predict_logo' %}">
+            {% csrf_token %}
             <label for="logoInput" class="custom-file-upload">
                 Choose Logo Image
             </label>
-            <input type="file" id="logoInput" accept="image/*" required>
+            <input type="file" name="logo_image" id="logoInput" accept="image/*" required>
             <img id="preview" alt="Preview Image">
-            <button type="button" class="btn btn-success btn-block mt-3" onclick="predictLogo()">Predict</button>
+            <button type="submit" class="btn btn-success btn-block mt-3" onclick="predictLogo()">Predict</button>
         </form>
-        <div id="result" class="mt-4"></div>
+        <div id="result" class="mt-4">{{prediction}}</div>
     </div>
 
     <!-- Bootstrap JS and Popper.js (required for Bootstrap) -->
@@ -111,13 +112,13 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
-        function predictLogo() {
-            // Placeholder function for logo prediction
-            // In a real implementation, this would involve sending the image to a server for inference
-            // and receiving the prediction result.
-            var resultDiv = document.getElementById('result');
-            resultDiv.innerHTML = 'Prediction: Fake'; // Replace with actual prediction logic
-        }
+        // function predictLogo() {
+        //     // Placeholder function for logo prediction
+        //     // In a real implementation, this would involve sending the image to a server for inference
+        //     // and receiving the prediction result.
+        //     var resultDiv = document.getElementById('result');
+        //     resultDiv.innerHTML = 'Prediction: Fake'; // Replace with actual prediction logic
+        // }
 
         // Display preview of the uploaded image
         document.getElementById('logoInput').addEventListener('change', function (event) {

@@ -32,6 +32,8 @@ checkpoint_path = "training_1/cp.ckpt"
 model.load_weights(checkpoint_path).expect_partial()
 
 def predict_logo(request):
+    context = {}  # Initialize context outside of the try block
+
     if request.method == 'POST':
         try:
             # Assuming you have an input field named 'logo_image' in your HTML form
@@ -47,13 +49,13 @@ def predict_logo(request):
             # Output the prediction result
             prediction_result = "Fake" if results[0] > results[1] else "Real"
 
-            return JsonResponse({'result': prediction_result})
+            # Update the context
+            context = {'prediction': prediction_result}
 
         except (ValueError, FileNotFoundError, IOError, Image.UnidentifiedImageError) as e:
-            return JsonResponse({'error': f"Error: {e}. Please upload a valid image."})
+            context = {'error': f"Error: {e}. Please upload a valid image."}
 
-    return render(request, 'predict_logo.html')  # Replace 'predict_logo.html' with your actual template file
-
+    return render(request, 'logo.html', context)
 
 
 def register(request):
@@ -73,13 +75,13 @@ def login(request):
         pass1=request.POST.get('password')
         user=authenticate(request,username=username,password=pass1)
         if user is not None:
-            return redirect('logo')
+            return redirect('predict_logo')
         else:
             messages.error(request, 'Invalid login credentials.') 
     return render(request,'login.html')
 
-def logo(request):
-    return render(request,'logo.html')
+# def logo(request):
+#     return render(request,'logo.html')
 
 def logoutpage(request):
     logout(request)
