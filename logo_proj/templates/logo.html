@@ -91,7 +91,7 @@
 <body>
     
     <div class="container">
-    <a href="{% url 'logoutpage' %}"><i class="fas fa-sign-out-alt fa-2x" id="logout-icon"></i></a>
+    <a href="" data-toggle="modal" data-target="#logoutModal" ><i class="fas fa-sign-out-alt fa-2x" id="logout-icon"></i></a>
     
         <h2 class="mb-5">Logo Predictor</h2>
         <form id="logoForm" method="post" enctype="multipart/form-data" action="{% url 'predict_logo' %}">
@@ -104,7 +104,29 @@
             <button type="submit" class="btn btn-success btn-block mt-3" onclick="predictLogo()">Predict</button>
         </form>
         <div id="result" class="mt-4">{{prediction}}</div>
+         <!-- Logout Modal -->
+            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="logoutModalLabel">Logout Confirmation</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you sure you want to logout?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <a href="{% url 'logoutpage' %}" class="btn btn-danger" >Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </div>
+    
 
     <!-- Bootstrap JS and Popper.js (required for Bootstrap) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

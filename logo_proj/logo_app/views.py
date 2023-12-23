@@ -63,9 +63,18 @@ def register(request):
         uname=request.POST.get('username')
         email=request.POST.get('email')
         pass1=request.POST.get('password')
-        my_user=User.objects.create_user(uname,email,pass1)
-        my_user.save()
-        return redirect('login')
+        if User.objects.filter(username=uname).exists():
+            messages.error(request, 'Username already exists.')
+            return render(request, 'register.html')
+        else:
+            my_user=User.objects.create_user(
+                username=uname,
+                email=email,
+                password=pass1,
+                )
+            my_user.save()
+            messages.success(request, 'Registration successful. You can now log in.')
+            return redirect('login')
 
     return render(request,'register.html')
 
@@ -77,11 +86,9 @@ def login(request):
         if user is not None:
             return redirect('predict_logo')
         else:
-            messages.error(request, 'Invalid login credentials.') 
+            messages.error(request, 'Username or Password incorrect.') 
     return render(request,'login.html')
 
-# def logo(request):
-#     return render(request,'logo.html')
 
 def logoutpage(request):
     logout(request)
