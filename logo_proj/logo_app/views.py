@@ -7,6 +7,7 @@ from PIL import Image
 import os
 import numpy as np
 from django.contrib import messages
+from .models import *
 
 from keras import layers, models, Sequential
 import tensorflow as tf
@@ -49,6 +50,12 @@ def predict_logo(request):
             # Output the prediction result
             prediction_result = "Fake" if results[0] > results[1] else "Real"
 
+            # save predicted result and logo image to database
+            predict=LogoPrediction.objects.create(
+                result=prediction_result,
+                image=logo_image
+                )
+            predict.save()
             # Update the context
             context = {'prediction': prediction_result}
 
