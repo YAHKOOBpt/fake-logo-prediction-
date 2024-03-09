@@ -1,0 +1,148 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Viewer</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: url('{% static "bg_3.jpg" %}') center center fixed;
+            background-size: cover;
+            height: 100vh;
+            margin: 0;
+            /* display: flex; */
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.671);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            text-align: center;
+            margin-top: 150px;
+        }
+
+        .container-fluid{
+            margin-top: 10px;
+        }
+        .container-fluid .navbar {
+            background-color: rgba(18, 12, 57, 0.861);
+            color: #fff;
+            
+        }
+
+        h2 {
+            font-weight: 800;
+            color: #333;
+        }
+
+        .product-section {
+            margin-top: 20px;
+        }
+
+        .product-image {
+            max-width: 100%;
+            border: 2px solid #3d0715;
+            border-radius: 5px;
+        }
+
+        .product-name {
+            font-weight: bold;
+            margin-top: 10px;
+            color: #333;
+        }
+
+        .product-description {
+            margin-top: 10px;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg ">
+            <a class="navbar-brand" href="{% url 'predict_logo' %}" style="color: #fff;">Logo Predictor</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'predict_logo' %}" style="color: #fff;margin-right: 20px;">Home <span class="sr-only" >(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'category' %}" style="color: #fff;margin-right: 20px;">Logos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'view_prediction' %}" style="color: #fff;margin-right: 20px;">History</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <img src="{% static 'prf.jpg' %}" alt="Profile Image" style="width: 30px; height: 30px; border-radius: 50%;">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'view_user' %}" style="color: #0a0909;">View Profile</a><hr>
+                            <a class="dropdown-item" href="#" style="color: #0a0909;" data-toggle="modal" data-target="#logoutModal">LogOut</a>
+                            <!-- Add more dropdown items if needed -->
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <div class="container">
+        <h2 class="mb-5">Product Viewer</h2>
+
+        <!-- Products -->
+        {% for product in products %}
+        <div class="product-section">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+            <h3 class="product-name">{{ product.name }}</h3>
+            <p class="product-description">{{ product.description }}</p>
+        </div>
+        {% endfor %}
+
+        <!-- Logout Modal -->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="logoutModalLabel">Logout Confirmation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to logout?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <a href="{% url 'logoutpage' %}" class="btn btn-danger" >Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+    <!-- Bootstrap JS and Popper.js (required for Bootstrap) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

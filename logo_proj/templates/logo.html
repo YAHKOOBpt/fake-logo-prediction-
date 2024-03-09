@@ -13,22 +13,32 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
-            background: url('{% static "bg image.jpg" %}') center center fixed;
+            background: url('{% static "bg_3.jpg" %}') center center fixed;
             background-size: cover;
             height: 100vh;
             margin: 0;
-            display: flex;
+            /* display: flex; */
             align-items: center;
             justify-content: center;
         }
 
         .container {
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.671);
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
             max-width: 400px;
             text-align: center;
+            margin-top: 150px;
+        }
+
+        .container-fluid{
+            margin-top: 10px;
+        }
+        .container-fluid .navbar {
+            background-color: rgba(18, 12, 57, 0.861);
+            color: #fff;
+            
         }
 
         h2 {
@@ -89,11 +99,50 @@
 </head>
 
 <body>
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg ">
+            <a class="navbar-brand" href="{% url 'predict_logo' %}" style="color: #fff;">Logo Predictor</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'predict_logo' %}" style="color: #fff;margin-right: 20px;">Home <span class="sr-only" >(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'category' %}" style="color: #fff;margin-right: 20px;">Logos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'view_prediction' %}" style="color: #fff;margin-right: 20px;">History</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <img src="{% static 'prf.jpg' %}" alt="Profile Image" style="width: 30px; height: 30px; border-radius: 50%;">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'view_user' %}" style="color: #0a0909;">View Profile</a><hr>
+                            <a class="dropdown-item" href="#" style="color: #0a0909;" data-toggle="modal" data-target="#logoutModal">LogOut</a>
+                            <!-- Add more dropdown items if needed -->
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    
     
     <div class="container">
-    <a href="" data-toggle="modal" data-target="#logoutModal" ><i class="fas fa-sign-out-alt fa-2x" id="logout-icon"></i></a>
+
+
+    <!-- <a href="{% url 'view_user' %}"  ><i class="fas fa-user fa-2x" id="profile-icon" style="color: #1e4b60;"></i></a> -->
+    <!-- <a href="{% url 'category' %}" style="margin-left: 50px;" ><i class="fas fa-book fa-2x" id="book-icon"  style="color: #0b3f4a;"></i></a> -->
+    <!-- <a href="" data-toggle="modal" data-target="#logoutModal" ><i class="fas fa-sign-out-alt fa-2x" id="logout-icon" style="color: #c6c6c6;"></i></a> -->
     
-        <h2 class="mb-5">Logo Predictor</h2>
+        <h2 class="mb-5 mt-5">Logo Predictor</h2>
         <form id="logoForm" method="post" enctype="multipart/form-data" action="{% url 'predict_logo' %}">
             {% csrf_token %}
             <label for="logoInput" class="custom-file-upload">
@@ -104,6 +153,8 @@
             <button type="submit" class="btn btn-success btn-block mt-3" onclick="predictLogo()">Predict</button>
         </form>
         <div id="result" class="mt-4">{{prediction}}</div>
+
+        
          <!-- Logout Modal -->
             <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel"
                 aria-hidden="true">
@@ -125,8 +176,10 @@
                     </div>
                 </div>
             </div>
-    </div>
-    
+        </div>
+
+
+    <!-- New Section for Category Image and Name -->
 
     <!-- Bootstrap JS and Popper.js (required for Bootstrap) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
